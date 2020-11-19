@@ -32,6 +32,9 @@
   left.addEventListener('mousemove', onMouseMove);
   right.addEventListener('mousemove', onMouseMove);
   splitter.addEventListener('mousemove', onMouseMove);
+  left.addEventListener('touchmove', onTouchMove);
+  right.addEventListener('touchmove', onTouchMove);
+  splitter.addEventListener('touchmove', onTouchMove);
 
   function resize(width) {
     width -= 5;
@@ -39,10 +42,14 @@
     splitter.style.left = `${width}px`;
   }
 
+  function onTouchMove(event) {
+    console.log(event);
+    resize(event.targetTouches[0].clientX);
+  }
   function onMouseMove(event) {
+    console.log(event);
     if(event.buttons != 1) return;
     resize(event.clientX);
-    console.log(event);
   }
 
   resize(50);
