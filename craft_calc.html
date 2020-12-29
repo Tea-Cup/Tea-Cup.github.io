@@ -1,36 +1,33 @@
 <script>
+  function set(id, val) { document.getElementById(id).innerText = val; }
+  function get(id) { return +document.getElementById(id).value; }
   function recalc() {
-    const input = [
-      0,
-      +document.getElementById('tier1').value,
-      +document.getElementById('tier2').value,
-      +document.getElementById('tier3').value,
-      +document.getElementById('tier4').value,
-    ];
+    const 
+      input1 = get('tier1'),
+      input2 = get('tier2'),
+      input3 = get('tier3'),
+      input4 = get('tier4');
 
-    const output = [0];
-    const total = [0];
+    const total1 = input1;
+    const output1 = total1 % 3;
 
-    total[1] = input[1];
-    output[1] = total[1] % 3;
+    const total2 = input2 + (input1 - output1) / 3;
+    const output2 = total2 % 3;
 
-    total[2] = (input[2] + (input[1] - output[1])/3);
-    output[2] = total[2] % 3;
+    const total3 = (total2 - output2) / 3 + input3;
+    const output3 = total3 % 3;
 
-    total[3] = ((input[2] + (input[1] - output[1]) / 3 - output[2]) / 3 + input[3]);
-    output[3] = total[3] % 3;
+    const total4 = Math.round(input4 + (total3 - output3) / 3);
+    const output4 = total4;
 
-    total[4] = Math.round(input[4] + ((input[2] + (input[1] - output[1]) / 3 - output[3]) / 3 + input[3] - output[3]) / 3);
-    output[4] = total[4];
-
-    document.getElementById('out1').innerText = output[1];
-    document.getElementById('out2').innerText = output[2];
-    document.getElementById('out3').innerText = output[3];
-    document.getElementById('out4').innerText = output[4];
-    document.getElementById('tot1').innerText = total[1];
-    document.getElementById('tot2').innerText = total[2];
-    document.getElementById('tot3').innerText = total[3];
-    document.getElementById('tot4').innerText = total[4];
+    set('out1', output1);
+    set('out2', output2);
+    set('out3', output3);
+    set('out4', output4);
+    set('tot1', total1);
+    set('tot2', total2);
+    set('tot3', total3);
+    set('tot4', total4);
   }
 </script>
 <style>
