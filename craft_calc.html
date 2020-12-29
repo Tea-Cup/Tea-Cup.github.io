@@ -1,0 +1,106 @@
+<script>
+  function recalc() {
+    const input = [
+      0,
+      +document.getElementById('tier1').value,
+      +document.getElementById('tier2').value,
+      +document.getElementById('tier3').value,
+      +document.getElementById('tier4').value,
+    ];
+
+    const output = [0];
+    const total = [0];
+
+    total[1] = input[1];
+    output[1] = total[1] % 3;
+
+    total[2] = (input[2] + (input[1] - output[1])/3);
+    output[2] = total[2] % 3;
+
+    total[3] = ((input[2] + (input[1] - output[1]) / 3 - output[2]) / 3 + input[3]);
+    output[3] = total[3] % 3;
+
+    total[4] = Math.round(input[4] + ((input[2] + (input[1] - output[1]) / 3 - output[3]) / 3 + input[3] - output[3]) / 3);
+    output[4] = total[4];
+
+    document.getElementById('out1').innerText = output[1];
+    document.getElementById('out2').innerText = output[2];
+    document.getElementById('out3').innerText = output[3];
+    document.getElementById('out4').innerText = output[4];
+    document.getElementById('tot1').innerText = total[1];
+    document.getElementById('tot2').innerText = total[2];
+    document.getElementById('tot3').innerText = total[3];
+    document.getElementById('tot4').innerText = total[4];
+  }
+</script>
+<style>
+  body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding-top: 10%;
+    box-sizing: border-box;
+  }
+  input { font-size: 1.5vw; }
+  .t4 { background: #FFE699; }
+  .t3 { background: #CC66FF; }
+  .t2 { background: #BDD7EE; }
+  .t1 { background: #C6E0B4; }
+  input { background: none; border: none; padding-right: 10px; width: 4em; }
+  table { border-spacing: 0; }
+  th { text-align: left; padding-right: 10px; }
+  td { border-bottom: 1px solid black; padding-left: 5px; }
+  tr:first-child>td { border-top: 1px solid black; }
+  td:last-child { border-right: 1px solid black; }
+  td:first-of-type { border-left: 1px solid black; }
+  #container { padding: 50px; border: 1px solid black; }
+  .help {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAAIQAAACEATCrHSUAAAQTSURBVEhLrZV/TFNXFMdPX20LbUFEJ/4hFJGxgIxuxkViNt0S5zZQFsDVUjKiUwaK8ccCWRtGGFvi2wJumRFnIBojS9OwtcOqmPhjDrMpZA2/ijjDYDoRtYaa0b5qQd7bve9doC0PcMs+6c2993tez3n33nPuk8As1J20pzExm0zGAx0Zfud5FXieSHmDWjIOz8mYDesWnvmmwkAnx0X08LoIogGqa80rqn9aYHfZZAnAJSHlN9RuoPYUmwk4VjxqLwGV3uY68L76HWOJvp03BTAtQPbe41U/1q+sAB+2XUGKWzDMigL9FnCFFbFV9Z9kVhGRJyjASv0RW7tleTYAg2bdgvivUMAqQ5TVYd65mQj8Onnwm18+pikGcKHZ74I4wRKpX18cV777Q03ee3lLaxQauft6v+c1YLh55AnCOAw5mZScfQVwo/VUC1b4FeA9LytLcYJvAM1D3lwb5mosT4jV6XSjROFpbGyU6z6/fRecY4sAgkwAco6zWt9Izt30+k0Kz+kLUWfAx013ruC4b/fEpWHnerq3CdRHWVB+yuKtxFrbyY1aUKZy5OkpRiWSgi8czXhI4VR0N8lROuADDeFF1dDO7YYHXzVc/cBievAueJUSfPjtFlf2R7R56+qXk4cUa6X3AMLJH6ZgrnoT8M5QOM8BcCo+EiwBLImWP8T9d5eHd6DkR6MBPOXp6Pt7I+5XRN35C2AprwWB1tXS89hEGenODAAHUYO5f2VEuzijobfd4k4H6CIqAqXGBm3kQTzs7JmXwnsTobmVyqT8XahCoZdIITxhJa5mVzL4RtD5DAqaEjj9fk2paW/+tbqmriy2JzIS4E/BFgJ7ayiCAsaHDjqwQkPxoDYsDBdRYzU1L2gsNdsO2s+3LS8qCbMBzEeGccEeCjNK8Vn0rBQWx+8o3ZV3p+pEtzFrS3gfd/ch2qxrxCoOBUqKJeM5eTMt7HvcVxZ10PAI18xFXp8RFcVSsFiG7oXJgp6Vlj5pvq2VKQQ/LuBOQZyNGJmHwleucCvOTW354/qc9ME6Yd/n5u11C+2S7n53alriLSdwdiL/T6ANrD6clIo6gIj1xwc8F93LALy8bSYKy5dtHWNBdoKW1gP8QVRx1K+q+72/lCbyWVSZE54JimjxagkAO9dtKUAv9QpRZkDGcV8XPY8KOOB7UEI3G2tN3TSqLqKIkYgadt6Hmnj1Y3L3xFZaD23/DI8nA2BWGY7+4DDfzyXT/8RqQ4y1LeCDE1RoDnPxZhwd3+dEenbQtuTuj6sIdI4JWsEEDbZL8fsOdZ0dbhlJmeEemwJ5UK1RDxzelZSxLT/rJlEnEQ0wAb7Pf+71f3zuV0kWe3tQBd4xoSLV1DgqIu9ba6NPr9dGfllWYrjO69MA+AdeF2I70sTeSQAAAABJRU5ErkJggg==');
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    filter: grayscale();
+    opacity: 0.2;
+    cursor: help;
+  }
+  .help:hover {
+    opacity: 1;
+    filter: none;
+  }
+</style>
+<title>Ingredient Crafting | Genshin Impact Calculator</title>
+<div id="container">
+  <table>
+    <tbody>
+      <tr>
+        <th><div class='help' title="Current amount of items"></div></th>
+        <th>Current:</th>
+        <td id="inp4" class="t4"><input type="number" id="tier4" onchange="recalc()" onkeydown="recalc()" /></td>
+        <td id="inp3" class="t3"><input type="number" id="tier3" onchange="recalc()" onkeydown="recalc()" /></td>
+        <td id="inp2" class="t2"><input type="number" id="tier2" onchange="recalc()" onkeydown="recalc()" /></td>
+        <td id="inp1" class="t1"><input type="number" id="tier1" onchange="recalc()" onkeydown="recalc()" /></td>
+      </tr>
+      <tr>
+        <th><div class='help' title="Final amount of items if crafted up-tier"></div></th>
+        <th>Crafted:</th>
+        <td id="out4" class="t4"></td>
+        <td id="out3" class="t3"></td>
+        <td id="out2" class="t2"></td>
+        <td id="out1" class="t1"></td>
+      </tr>
+      <tr>
+        <th><div class='help' title="Final amount of items if not crafted up-tier"></div></th>
+        <th>Total:</th>
+        <td id="tot4" class="t4"></td>
+        <td id="tot3" class="t3"></td>
+        <td id="tot2" class="t2"></td>
+        <td id="tot1" class="t1"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>recalc()</script>
