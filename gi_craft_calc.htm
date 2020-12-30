@@ -44,11 +44,19 @@
         set('tot3', total3);
         set('tot4', total4);
       }
+      function clear() {
+        document.getElementById('tier1').value = 0;
+        document.getElementById('tier2').value = 0;
+        document.getElementById('tier3').value = 0;
+        document.getElementById('tier4').value = 0;
+        recalc();
+      }
       function onload() {
         bind('inp1');
         bind('inp2');
         bind('inp3');
         bind('inp4');
+        document.getElementById('clear').addEventListener('click', clear);
         recalc();
       }
       document.addEventListener('DOMContentLoaded', onload);
@@ -72,22 +80,28 @@
       .t1 { background: #C6E0B4; }
       input { background: none; border: none; padding-right: 10px; width: 4em; }
       table { border-spacing: 0; }
-      th { text-align: left; padding-right: 10px; }
+      th { text-align: left; padding: 0 10px; }
       td { border-bottom: 1px solid black; padding-left: 5px; }
       tr:first-child>td { border-top: 1px solid black; }
-      td:last-child { border-right: 1px solid black; }
+      td:last-of-type { border-right: 1px solid black; }
       td:first-of-type { border-left: 1px solid black; }
       #container { padding: 50px; border: 1px solid black; }
       .help {
         background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAAIQAAACEATCrHSUAAAQTSURBVEhLrZV/TFNXFMdPX20LbUFEJ/4hFJGxgIxuxkViNt0S5zZQFsDVUjKiUwaK8ccCWRtGGFvi2wJumRFnIBojS9OwtcOqmPhjDrMpZA2/ijjDYDoRtYaa0b5qQd7bve9doC0PcMs+6c2993tez3n33nPuk8As1J20pzExm0zGAx0Zfud5FXieSHmDWjIOz8mYDesWnvmmwkAnx0X08LoIogGqa80rqn9aYHfZZAnAJSHlN9RuoPYUmwk4VjxqLwGV3uY68L76HWOJvp03BTAtQPbe41U/1q+sAB+2XUGKWzDMigL9FnCFFbFV9Z9kVhGRJyjASv0RW7tleTYAg2bdgvivUMAqQ5TVYd65mQj8Onnwm18+pikGcKHZ74I4wRKpX18cV777Q03ee3lLaxQauft6v+c1YLh55AnCOAw5mZScfQVwo/VUC1b4FeA9LytLcYJvAM1D3lwb5mosT4jV6XSjROFpbGyU6z6/fRecY4sAgkwAco6zWt9Izt30+k0Kz+kLUWfAx013ruC4b/fEpWHnerq3CdRHWVB+yuKtxFrbyY1aUKZy5OkpRiWSgi8czXhI4VR0N8lROuADDeFF1dDO7YYHXzVc/cBievAueJUSfPjtFlf2R7R56+qXk4cUa6X3AMLJH6ZgrnoT8M5QOM8BcCo+EiwBLImWP8T9d5eHd6DkR6MBPOXp6Pt7I+5XRN35C2AprwWB1tXS89hEGenODAAHUYO5f2VEuzijobfd4k4H6CIqAqXGBm3kQTzs7JmXwnsTobmVyqT8XahCoZdIITxhJa5mVzL4RtD5DAqaEjj9fk2paW/+tbqmriy2JzIS4E/BFgJ7ayiCAsaHDjqwQkPxoDYsDBdRYzU1L2gsNdsO2s+3LS8qCbMBzEeGccEeCjNK8Vn0rBQWx+8o3ZV3p+pEtzFrS3gfd/ch2qxrxCoOBUqKJeM5eTMt7HvcVxZ10PAI18xFXp8RFcVSsFiG7oXJgp6Vlj5pvq2VKQQ/LuBOQZyNGJmHwleucCvOTW354/qc9ME6Yd/n5u11C+2S7n53alriLSdwdiL/T6ANrD6clIo6gIj1xwc8F93LALy8bSYKy5dtHWNBdoKW1gP8QVRx1K+q+72/lCbyWVSZE54JimjxagkAO9dtKUAv9QpRZkDGcV8XPY8KOOB7UEI3G2tN3TSqLqKIkYgadt6Hmnj1Y3L3xFZaD23/DI8nA2BWGY7+4DDfzyXT/8RqQ4y1LeCDE1RoDnPxZhwd3+dEenbQtuTuj6sIdI4JWsEEDbZL8fsOdZ0dbhlJmeEemwJ5UK1RDxzelZSxLT/rJlEnEQ0wAb7Pf+71f3zuV0kWe3tQBd4xoSLV1DgqIu9ba6NPr9dGfllWYrjO69MA+AdeF2I70sTeSQAAAABJRU5ErkJggg==');
+        cursor: help;
+      }
+      .remove {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAugAAALoBTx5ghQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGhSURBVEiJpZS/btNQFIe/392qOixd+iK2mBCqs3TjAZBgYYkKlZiY2hipA0tBEBVlYmJnYoq7MOG8BqgP4CAUqfJhoKlC6nt9HX6jzznfd637RwD1QfpA0geDRNhJUs4/s0UWefrYUCGoG3h+r6y+qR7efyhrvgI7N31m2NGgnF/0gdd5OhKaALr59NucHTpZM12DA0hoUufp6D/gADtqNHXAXstMtMQDX2XPIc48s52SDjiYzlwyq96aKIKSg+xos/BrmD4LwsWb5PL7u9tiPczGMk49IjPjxeCymqzgZpoG4bPqFZsNMRLnbBkLvyPokgjMPHNtcG9jx5+0pwXuX0lfiQceFERLAnAAF5p12E/AfHUDrOFH2O9J51Fc86wf4ShBD3in5A5gC3hQ8s8exNzQ4LMi3m8+K7egPte/z7OivvBVYiVa5NkT4JMPbqIYzKpxW63O00LoxCdBPNUiz66A/b7wSMmVA5bbwgEG5fzUsNee8tJJOgaut4F3SK7VuOO/m5xnjww+ArvAOCmr81j4ehZ59lJQGNSC0W5ZffkDcV/60qJU4rYAAAAASUVORK5CYII=');
+        cursor: pointer;
+      }
+      .icon {
         background-size: contain;
         width: 16px;
         height: 16px;
         filter: grayscale();
         opacity: 0.2;
-        cursor: help;
       }
-      .help:hover {
+      .icon:hover {
         opacity: 1;
         filter: none;
       }
@@ -98,15 +112,16 @@
       <table>
         <tbody>
           <tr>
-            <th><div class='help' title="Current amount of items"></div></th>
+            <th><div class='help icon' title="Current amount of items"></div></th>
             <th>Current:</th>
             <td id="inp4" class="t4"><input type="number" id="tier4" value="0" /></td>
             <td id="inp3" class="t3"><input type="number" id="tier3" value="0" /></td>
             <td id="inp2" class="t2"><input type="number" id="tier2" value="0" /></td>
             <td id="inp1" class="t1"><input type="number" id="tier1" value="0" /></td>
+            <th><div id="clear" class='remove icon' title="Clear input"></div></th>
           </tr>
           <tr>
-            <th><div class='help' title="Final amount of items if crafted up-tier"></div></th>
+            <th><div class='help icon' title="Final amount of items if crafted up-tier"></div></th>
             <th>Crafted:</th>
             <td id="out4" class="t4"></td>
             <td id="out3" class="t3"></td>
@@ -114,7 +129,7 @@
             <td id="out1" class="t1"></td>
           </tr>
           <tr>
-            <th><div class='help' title="Final amount of items if not crafted up-tier"></div></th>
+            <th><div class='help icon' title="Final amount of items if not crafted up-tier"></div></th>
             <th>Total:</th>
             <td id="tot4" class="t4"></td>
             <td id="tot3" class="t3"></td>
