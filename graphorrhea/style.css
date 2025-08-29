@@ -1,0 +1,126 @@
+:root {
+    --bgd: #181818;
+    --bgn: #1F1F1F;
+    --bgl: #242424;
+    --hlt: #4D6ECF;
+    --fgd: #868686;
+    --fgn: #CCCCCC;
+    --fgl: #D7D7D7;
+    --bdr: #2B2B2B;
+    --kanji: invert(0);
+}
+.light {
+    --bgd: #F8F8F8;
+    --bgn: #FFFFFF;
+    --bgl: #EBEBEB;
+    --hlt: #3E55B4;
+    --fgd: #616161;
+    --fgn: #3B3B3B;
+    --fgl: #1F1F1F;
+    --bdr: #E5E5E5;
+    --kanji: invert(1);
+}
+
+@font-face {
+    font-family: "OpenDyslexic";
+    src:
+        url("./font/OpenDyslexic-Regular.otf") format("opentype"),
+        url("./font/OpenDyslexic-Regular.woff2") format("woff2"),
+        url("./font/OpenDyslexic-Regular.woff") format("woff");
+}
+@font-face {
+    font-family: "OpenDyslexic";
+    font-weight: bold;
+    src:
+        url("./font/OpenDyslexic-Bold.otf") format("opentype"),
+        url("./font/OpenDyslexic-Bold.woff2") format("woff2"),
+        url("./font/OpenDyslexic-Bold.woff") format("woff");
+}
+@font-face {
+    font-family: "OpenDyslexic";
+    font-style: italic;
+    src:
+        url("./font/OpenDyslexic-Italic.otf") format("opentype"),
+        url("./font/OpenDyslexic-Italic.woff2") format("woff2"),
+        url("./font/OpenDyslexic-Italic.woff") format("woff");
+}
+@font-face {
+    font-family: "OpenDyslexic";
+    font-weight: bold;
+    font-style: italic;
+    src:
+        url("./font/OpenDyslexic-Bold-Italic.otf") format("opentype"),
+        url("./font/OpenDyslexic-Bold-Italic.woff2") format("woff2"),
+        url("./font/OpenDyslexic-Bold-Italic.woff") format("woff");
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--bgn);
+    color: var(--fgn);
+    padding-top: 36px;
+}
+
+#logo {
+    height: 36px;
+    filter: var(--kanji);
+    pointer-events: none;
+    user-select: none;
+}
+
+body > header {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    border-bottom: 1px solid var(--bdr);
+    background-color: var(--bgd);
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+#theme {
+    width: 26px;
+    height: 26px;
+    margin-left: auto;
+    user-select: none;
+    border: 1px solid var(--bdr);
+    border-radius: 50%;
+    cursor: pointer;
+    background: url('./theme.png') right/cover no-repeat;
+    opacity: 0.8;
+}
+#theme:hover {
+    opacity: 1;
+    background-color: var(--bgl)
+}
+.light #theme {
+    background-position-x: left;
+}
+
+#title {
+    position: absolute;
+    left: 50vw;
+    transform: translateX(-50%);
+    font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+#main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+}
+#main>p {
+    max-width: 800px;
+    width: 100%;
+    text-align: justify;
+    font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
+}
