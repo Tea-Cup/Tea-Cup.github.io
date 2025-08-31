@@ -60,7 +60,7 @@
 
 body {
     margin: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--bgn);
     color: var(--fgn);
     padding-top: 36px;
@@ -104,14 +104,6 @@ body > header {
     background-position-x: left;
 }
 
-#title {
-    position: absolute;
-    left: 50vw;
-    transform: translateX(-50%);
-    font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-}
-
 #main {
     display: flex;
     align-items: center;
@@ -122,5 +114,103 @@ body > header {
     max-width: 800px;
     width: 100%;
     text-align: justify;
-    font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+hr {
+    max-width: 800px;
+    height: 10px;
+    width: 800px;
+    border: none;
+    margin: 0;
+    position: relative;
+    margin: 10px 0;
+}
+hr::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    border: 5px solid var(--fgl);
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+hr::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--fgl);
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+#title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    line-height: 34px;
+    padding: 0 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+#title.placeholder {
+    color: var(--fgd);
+    font-size: 15px;
+}
+#title:hover, #nav.show + #title {
+    border-color: var(--bdr);
+    background-color: var(--bgl);
+}
+
+#nav {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    max-width: 400px;
+    width: 100%;
+    display: none;
+    user-select: none;
+}
+#nav.show {
+    display: block;
+}
+
+#nav a {
+    color: var(--fgn);
+    text-decoration: none;
+    padding: 3px 6px;
+    border: 1px solid var(--bdr);
+    background-color: var(--bgl);
+    font-size: 20px;
+    user-select: none;
+    display: block;
+    position: relative;
+    border-top-width: 0px;
+}
+#nav a:first-child {
+    border-top-width: 1px;
+}
+#nav a:hover {
+    color: var(--fgl);
+}
+#nav a:hover::after {
+    content: "";
+    position: absolute;
+    border: 2px solid var(--hlt);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
