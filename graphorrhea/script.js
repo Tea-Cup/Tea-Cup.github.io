@@ -18,19 +18,27 @@ document.addEventListener('readystatechange', async () => {
     //#endregion
 
     //#region Title loading
+    let bookmark_pause = true;
     const main = document.getElementById('main');
     const title = document.getElementById('title');
     const nav = document.getElementById('nav');
+    const bookmark = document.getElementById('bookmark');
     const index = await fetch('./index.json').then(res => res.json());
 
     async function loadItem(id) {
         const item = index[id];
-        main.replaceChildren();
+        pauseBookmark(true);
+        for(let child of [...main.childNodes]) {
+            if(child.id === 'bookmark') continue;
+            main.removeChild(child);
+        }
         if(!item) {
             title.innerText = 'Select a title';
             title.classList.add('placeholder');
+            bookmark.style.display = 'none';
             return;
         }
+        bookmark.style.display = 'block';
         title.innerText = item.name;
         nav.classList.remove('show');
         title.classList.remove('placeholder');
@@ -43,6 +51,7 @@ document.addEventListener('readystatechange', async () => {
             }
             main.appendChild(document.createElement('hr'));
         }
+        loadBookmark(id);
     }
 
     for(const [id, item] of Object.entries(index)) {
@@ -63,5 +72,37 @@ document.addEventListener('readystatechange', async () => {
     });
 
     loadItem(window.location.hash.substring(1));
+    //#endregion
+    
+    //#region Bookmark
+    function pauseBookmark(state) {
+        bookmark_pause = state;
+        if(state) bookmark.style.display = 'none';
+        else bookmark.style.display = 'block';
+    }
+    function moveBookmark(y, force) {
+        if(bookmark_pause) return;
+        const id = window.location.hash.substring(1);
+        if(!index[id]) return;
+        if(y > 0) bookmark.style.visibility = 'visible';
+        else bookmark.style.visibility = 'hidden';
+        const prev = +(localStorage.getItem(id) ?? 0);
+        if(!force && y < prev) return;
+        bookmark.style.top = `${+y + window.innerHeight / 3}px`;
+        localStorage.setItem(id, y);
+    }
+    function loadBookmark(id) {
+        pauseBookmark(false);
+        const y = +(localStorage.getItem(id) ?? 0);
+        moveBookmark(y);
+        window.scrollTo({ top: y - window.innerHeight / 3, behavior: 'instant' });
+    }
+    bookmark.addEventListener('click', () => {
+        moveBookmark(0, true);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    window.addEventListener('scroll', () => {
+        moveBookmark(window.scrollY);
+    });
     //#endregion
 });
