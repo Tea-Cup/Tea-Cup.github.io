@@ -20,10 +20,15 @@ document.addEventListener('readystatechange', async () => {
 
     async function loadItem(id) {
         const item = index[id];
-        title.innerText = item.name;
-        nav.classList.toggle('show');
-        title.classList.remove('placeholder');
         main.replaceChildren();
+        if(!item) {
+            title.innerText = 'Select a title';
+            title.classList.add('placeholder');
+            return;
+        }
+        title.innerText = item.name;
+        nav.classList.remove('show');
+        title.classList.remove('placeholder');
         for (let i = 1; i <= item.parts; ++i) {
             const txt = await fetch(`./${id}/${i}.txt`).then(res => res.text());
             for (const para of txt.split('\n')) {
@@ -37,13 +42,20 @@ document.addEventListener('readystatechange', async () => {
 
     for(const [id, item] of Object.entries(index)) {
         const a = document.createElement('a');
-        a.href = '#';
+        a.href = `#${id}`;
         a.innerText = item.name;
         a.addEventListener('click', () => loadItem(id));
         nav.appendChild(a);
     }
 
+    window.addEventListener('hashchange', e => {
+        const url = new URL(e.newURL);
+        loadItem(url.hash.substring(1));
+    });
+    
     title.addEventListener('click', () => {
         nav.classList.toggle('show');
     });
+
+    loadItem(window.location.hash.substring(1));
 });
