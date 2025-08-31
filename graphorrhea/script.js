@@ -1,18 +1,23 @@
 document.addEventListener('readystatechange', async () => {
     if (document.readyState !== 'complete') return;
 
+    //#region Utils
     const encoder = new TextEncoder();
     function sha512(str) {
         const data = encoder.encode(String(str ?? ''));
         return window.crypto.subtle.digest('SHA-512', data);
     }
+    //#endregion
 
+    //#region Theme
     document.getElementById('theme').addEventListener('click', () => {
         const dark = document.body.classList.toggle('dark');
         document.body.classList.toggle('light', !dark);
         localStorage.setItem('theme', dark ? 'dark' : 'light');
     });
+    //#endregion
 
+    //#region Title loading
     const main = document.getElementById('main');
     const title = document.getElementById('title');
     const nav = document.getElementById('nav');
@@ -58,4 +63,5 @@ document.addEventListener('readystatechange', async () => {
     });
 
     loadItem(window.location.hash.substring(1));
+    //#endregion
 });
