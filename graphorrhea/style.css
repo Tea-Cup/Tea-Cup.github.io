@@ -2,22 +2,24 @@
     --bgd: #181818;
     --bgn: #1F1F1F;
     --bgl: #242424;
-    --hlt: #4D6ECF;
+    --hlt: #2B2D2E;
     --fgd: #868686;
     --fgn: #CCCCCC;
     --fgl: #D7D7D7;
-    --bdr: #2B2B2B;
+    --bdr: #313131;
+    --err: #DC8475;
     --kanji: invert(0);
 }
 .light {
     --bgd: #F8F8F8;
     --bgn: #FFFFFF;
     --bgl: #EBEBEB;
-    --hlt: #3E55B4;
+    --hlt: #CCCCCC;
     --fgd: #616161;
     --fgn: #3B3B3B;
     --fgl: #1F1F1F;
     --bdr: #E5E5E5;
+    --err: #DC8475;
     --kanji: invert(1);
 }
 
@@ -115,7 +117,7 @@ body > header {
     padding: 0 20px;
 }
 .error {
-    color: #DC8475;
+    color: var(--err);
     text-align: center;
     margin-top: 40px;
 }
@@ -142,12 +144,12 @@ body > header {
 .button, .list-button {
     white-space: nowrap;
     padding: 0;
-    background: #222222;
+    background: var(--bgl);
     width: 100%;
     max-width: 800px;
 }
 .button {
-    border: 1px solid #313131;
+    border: 1px solid var(--bdr);
     padding: 5px 15px;
     text-align: center;
     display: block;
@@ -162,11 +164,11 @@ body > header {
     text-align: center;
 }
 .button:hover, .list-button:hover {
-    background-color: #2B2D2E;
+    background-color: var(--hlt);
 }
 .list {
     list-style: none;
-    border: 1px solid #313131;
+    border: 1px solid var(--bdr);
     padding: 0;
     background: #222222;
     width: 100%;
@@ -190,7 +192,7 @@ body>#goback {
     flex: 1;
 }
 #list > li > a > div {
-    border-left: 1px solid #313131;
+    border-left: 1px solid var(--bdr);
     margin-left: auto;
     width: 45px;
     display: flex;
@@ -204,7 +206,7 @@ body>#goback {
     display: block;
     text-align: center;
 }
-#toc > li > a.read { color: #6e6e6e; }
+#toc > li > a.read { opacity: 0.3; }
 
 nav {
     width: 100%;
