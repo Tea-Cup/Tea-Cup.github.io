@@ -68,12 +68,6 @@ document.addEventListener('readystatechange', async () => {
     }
 
     const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
-    if(arr.length > 0) {
-        const clear = document.getElementById('clear-unread');
-        clear.style.display = '';
-        clear.href = `./toc.html?id=${id}&clear`;
-    }
-
     if(query.has('clear')) {
         arr.length = 0;
         localStorage.setItem(id, '[]');
@@ -81,6 +75,12 @@ document.addEventListener('readystatechange', async () => {
         const url = new URL(window.location.href);
         url.search = '?' + query.toString();
         history.replaceState(null, '', url.href);
+    }
+
+    if(arr.length > 0) {
+        const clear = document.getElementById('clear-unread');
+        clear.style.display = '';
+        clear.href = `./toc.html?id=${id}&clear`;
     }
 
     const title = document.getElementById('title');
