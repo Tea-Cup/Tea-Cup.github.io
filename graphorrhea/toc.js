@@ -62,6 +62,11 @@ document.addEventListener('readystatechange', async () => {
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
+    if(localStorage.getItem('version') !== '2') {
+        localStorage.removeItem(id);
+        localStorage.setItem('version', '2');
+    }
+
     const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
     if(arr.length > 0) {
         const clear = document.getElementById('clear-unread');
@@ -92,6 +97,6 @@ document.addEventListener('readystatechange', async () => {
             )
         ));
     }
-    
+
     document.body.style.display = '';
 });
