@@ -60,7 +60,7 @@ document.addEventListener('readystatechange', async () => {
     for(const [id, item] of Object.entries(index)) {
         list.appendChild(_(
             'li',
-            { },
+            { 'class': 'list-button' },
             _('a',
                 { href: `./toc.html?id=${id}` },
                 _('span', {}, item.name),

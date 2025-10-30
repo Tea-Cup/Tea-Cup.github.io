@@ -69,7 +69,7 @@ document.addEventListener('readystatechange', async () => {
     document.title = `${item.name} | Quiet Writer`;
 
     for(let i = 1; i <= item.parts; ++i) {
-        toc.appendChild(_('li',{ },
+        toc.appendChild(_('li', { 'class': 'list-button' },
             _('a', {
                     href: `./chapter.html?id=${id}&part=${i}`,
                     'class': { read: arr.includes(i) }
