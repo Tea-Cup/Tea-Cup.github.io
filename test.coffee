@@ -1,4 +1,5 @@
 ---
+---
 square = (x) -> x * x
 math =
     square: square
@@ -10,4 +11,3 @@ cubes = (math.cube num for num in list)
 
 console.log(cubes)
 console.log('test') if list[0] == 1
----
