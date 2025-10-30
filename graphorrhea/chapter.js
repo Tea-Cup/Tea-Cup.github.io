@@ -113,4 +113,6 @@ document.addEventListener('readystatechange', async () => {
             'p', {}, line
         ));
     }
+    
+    document.body.style.display = '';
 });

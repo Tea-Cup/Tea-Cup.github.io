@@ -60,10 +60,13 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: var(--bgn);
+}
+
 body {
     margin: 0;
     font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
-    background-color: var(--bgn);
     color: var(--fgn);
     padding-top: 36px;
 }

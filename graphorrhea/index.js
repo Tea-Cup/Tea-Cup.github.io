@@ -68,4 +68,6 @@ document.addEventListener('readystatechange', async () => {
             ),
         ));
     }
+    
+    document.body.style.display = '';
 });
