@@ -62,13 +62,18 @@ document.addEventListener('readystatechange', async () => {
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
+    const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
+
     const title = document.getElementById('title');
     title.innerText = item.name;
     document.title = `${item.name} | Quiet Writer`;
 
     for(let i = 1; i <= item.parts; ++i) {
         toc.appendChild(_('li',{ },
-            _('a', { href: `./chapter.html?id=${id}&part=${i}`},
+            _('a', {
+                    href: `./chapter.html?id=${id}&part=${i}`,
+                    'class': { read: arr.includes(i) }
+                },
                 `Chapter ${i}`
             )
         ));
