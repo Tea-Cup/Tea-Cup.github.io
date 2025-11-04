@@ -4,16 +4,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="dark light" />
         <link rel="stylesheet" href="./style.css" />
-        <script src="./index.js" defer></script>
+        <script src="./index.js" async></script>
         <title>Quiet Writer</title>
     </head>
-    <body style="display: none">
+    <body>
         <header>
             <a href="./"><img src="./seifude.png" alt="静筆" id="logo" /></a>
             <button id="theme" title="Switch theme" />
         </header>
         <main id="main">
-            <ul id="list" class="list"></ul>
+            <ul id="list" class="list">
+                <div id="loader">Loading…</div>
+            </ul>
         </main>
     </body>
 </html>

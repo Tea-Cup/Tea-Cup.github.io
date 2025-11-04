@@ -2,6 +2,7 @@ document.addEventListener('readystatechange', async () => {
     if (document.readyState !== 'complete') return;
 
     //#region Common
+    document.getElementById('kaktovik-loader').remove();
     const main = document.getElementById('main');
     const query = new URLSearchParams(window.location.search);
     function updateTheme() {
@@ -135,7 +136,8 @@ document.addEventListener('readystatechange', async () => {
     }
 
     const content = document.getElementById('content');
+    document.getElementById('loader').remove();
+    document.getElementById('nav-top').style.display = '';
+    document.getElementById('nav-bot').style.display = '';
     content.appendChild(frag);
-    
-    document.body.style.display = '';
 });

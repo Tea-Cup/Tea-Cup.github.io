@@ -78,6 +78,25 @@ body {
 .kaktovik {
     font-family: "Gentium Kaktovik";
 }
+#kaktovik-loader {
+    font-family: "Gentium Kaktovik";
+    position: fixed;
+    top: 0;
+}
+
+#loader {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 5px 15px;
+    text-align: center;
+    flex: 1;
+    user-select: none;
+    animation: 2s linear flash infinite;
+}
+@keyframes flash {
+    0% { opacity: 0.6 }
+    50% { opacity: 0.3 }
+    100% { opacity: 0.6 }
+}
 
 #logo {
     height: 36px;

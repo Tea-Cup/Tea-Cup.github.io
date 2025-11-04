@@ -4,23 +4,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="dark light" />
         <link rel="stylesheet" href="./style.css" />
-        <script src="./chapter.js" defer></script>
+        <script src="./chapter.js" async></script>
         <title>Quiet Writer</title>
     </head>
-    <body style="display: none">
+    <body>
+        <aside id="kaktovik-loader">𝋀𝋁𝋂𝋃𝋄𝋅𝋆𝋇𝋈𝋉𝋊𝋋𝋌𝋍𝋎𝋏𝋐𝋑𝋒𝋓</aside>
         <header>
             <a href="./"><img src="./seifude.png" alt="静筆" id="logo" /></a>
             <div id="title"></div>
             <button id="theme" title="Switch theme" />
         </header>
         <main id="main">
-            <nav id="nav-top">
+            <nav id="nav-top" style="display:none">
                 <a id="prev-top" class="button"></a>
                 <a id="goback-top" class="button">Back to chapters</div>
                 <a id="next-top" class="button"></a>
             </nav>
-            <section id="content"></section>
-            <nav id="nav-bot">
+            <section id="content">
+                <div id="loader">Loading…</div>
+            </section>
+            <nav id="nav-bot" style="display:none">
                 <a id="prev-bot" class="button"></a>
                 <a id="goback" class="button">Back to chapters</div>
                 <a id="next-bot" class="button"></a>

@@ -4,19 +4,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="dark light" />
         <link rel="stylesheet" href="./style.css" />
-        <script src="./toc.js" defer></script>
+        <script src="./toc.js" async></script>
         <title>Quiet Writer</title>
     </head>
-    <body style="display: none">
+    <body>
+        <aside id="kaktovik-loader">𝋀𝋁𝋂𝋃𝋄𝋅𝋆𝋇𝋈𝋉𝋊𝋋𝋌𝋍𝋎𝋏𝋐𝋑𝋒𝋓</aside>
         <header>
             <a href="./"><img src="./seifude.png" alt="静筆" id="logo" /></a>
             <div id="title"></div>
             <button id="theme" title="Switch theme" />
         </header>
         <main id="main">
-            <ol id="toc" class="list"></ol>
+            <ol id="toc" class="list">
+                <div id="loader">Loading…</div>
+            </ol>
             <a id="clear-unread" class="button" style="display: none">Clear Unread</div>
-            <a id="goback" class="button" href="./">Back to list</div>
+            <a id="goback" class="button" href="./" style="display: none">Back to list</div>
         </main>
     </body>
 </html>

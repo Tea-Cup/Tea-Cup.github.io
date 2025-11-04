@@ -88,7 +88,6 @@ document.addEventListener('readystatechange', async () => {
     }
 
     const list = document.getElementById('list');
+    document.getElementById('loader').remove();
     list.appendChild(frag);
-    
-    document.body.style.display = '';
 });
