@@ -3,9 +3,6 @@ document.addEventListener('readystatechange', async () => {
 
     //#region Common
     function $(id) { return document.getElementById(id) }
-    $('kaktovik-loader').remove();
-    const main = $('main');
-    const query = new URLSearchParams(window.location.search);
     function updateTheme() {
         const light = localStorage.getItem('theme') === 'light';
         document.body.parentElement.classList.toggle('light', light);
@@ -15,8 +12,6 @@ document.addEventListener('readystatechange', async () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
         document.body.parentElement.classList.toggle('light', !dark);
     }
-    $('theme').addEventListener('click', () => toggleTheme());
-    updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
         Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
@@ -27,11 +22,11 @@ document.addEventListener('readystatechange', async () => {
         }
         return el;
     }
-    function showError(...text) {
-        main.replaceChildren(_('div', { className: 'error' }, ...text));
-    }
     function showNavError(text, link, name) {
-        showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
+        $('main').replaceChildren(_(
+            'div', { className: 'error' },
+            text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name)
+        ));
     }
     function kaktovik(num) {
         const str = num.toString(20).split('').map(x => parseInt(x, 20));
@@ -45,6 +40,10 @@ document.addEventListener('readystatechange', async () => {
     function setChapters(id, value) {
         localStorage.setItem(id, JSON.stringify(value));
     }
+    const query = new URLSearchParams(window.location.search);
+    $('kaktovik-loader').remove();
+    $('theme').addEventListener('click', () => toggleTheme());
+    updateTheme();
     //#endregion
 
     const id = query.get('id');

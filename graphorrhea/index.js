@@ -2,8 +2,7 @@ document.addEventListener('readystatechange', async () => {
     if (document.readyState !== 'complete') return;
 
     //#region Common
-    const main = document.getElementById('main');
-    const query = new URLSearchParams(window.location.search);
+    function $(id) { return document.getElementById(id) }
     function updateTheme() {
         const light = localStorage.getItem('theme') === 'light';
         document.body.parentElement.classList.toggle('light', light);
@@ -13,8 +12,6 @@ document.addEventListener('readystatechange', async () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
         document.body.parentElement.classList.toggle('light', !dark);
     }
-    $('theme').addEventListener('click', () => toggleTheme());
-    updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
         Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
@@ -25,19 +22,12 @@ document.addEventListener('readystatechange', async () => {
         }
         return el;
     }
-    function showError(...text) {
-        main.replaceChildren(_('div', { className: 'error' }, ...text));
-    }
-    function showNavError(text, link, name) {
-        showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
-    }
     function getChapters(id) {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
         return Array.isArray(value) ? value : [];
     }
-    function setChapters(id, value) {
-        localStorage.setItem(id, JSON.stringify(value));
-    }
+    $('theme').addEventListener('click', () => toggleTheme());
+    updateTheme();
     //#endregion
 
     const index = await fetch('./index.json').then(res => res.json());
