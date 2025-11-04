@@ -24,7 +24,7 @@ document.addEventListener('readystatechange', async () => {
     }
     function getChapters(id) {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
-        return Array.isArray(value) ? value : [];
+        return new Set(Array.isArray(value) ? value : []);
     }
     $('theme').addEventListener('click', () => toggleTheme());
     updateTheme();
@@ -41,7 +41,7 @@ document.addEventListener('readystatechange', async () => {
             _('a',
                 { href: `./toc.html?id=${id}` },
                 _('span', {}, item.name),
-                _('div', {}, arr.length, ' / ', item.parts)
+                _('div', {}, arr.size, ' / ', item.parts)
             ),
         ));
     }

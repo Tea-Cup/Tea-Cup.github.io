@@ -35,7 +35,7 @@ document.addEventListener('readystatechange', async () => {
     }
     function getChapters(id) {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
-        return Array.isArray(value) ? value : [];
+        return new Set(Array.isArray(value) ? value : []);
     }
     const query = new URLSearchParams(window.location.search);
     $('kaktovik-loader').remove();
@@ -52,7 +52,7 @@ document.addEventListener('readystatechange', async () => {
 
     const arr = getChapters(id);
     if(query.has('clear')) {
-        arr.length = 0;
+        arr.clear();
         localStorage.setItem(id, '[]');
         query.delete('clear');
         const url = new URL(window.location.href);
@@ -60,7 +60,7 @@ document.addEventListener('readystatechange', async () => {
         history.replaceState(null, '', url.href);
     }
 
-    if(arr.length > 0) {
+    if(arr.size > 0) {
         const clear = $('clear-unread');
         clear.style.display = '';
         clear.href = `./toc.html?id=${id}&clear`;
@@ -74,7 +74,7 @@ document.addEventListener('readystatechange', async () => {
         frag.appendChild(_('li', { className: 'list-button' },
             _('a', {
                     href: `./chapter.html?id=${id}&part=${i}`,
-                    className: arr.includes(i) ? 'read' : ''
+                    className: arr.has(i) ? 'read' : ''
                 },
                 `Chapter `,
                 kaktovik(i)

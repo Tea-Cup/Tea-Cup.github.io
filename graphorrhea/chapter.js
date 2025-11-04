@@ -36,7 +36,7 @@ document.addEventListener('readystatechange', async () => {
     }
     function getChapters(id) {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
-        return Array.isArray(value) ? value : [];
+        return new Set(Array.isArray(value) ? value : []);
     }
     const query = new URLSearchParams(window.location.search);
     $('theme').addEventListener('click', () => toggleTheme());
@@ -56,10 +56,7 @@ document.addEventListener('readystatechange', async () => {
         return showNavError('Invalid chapter number', `./toc.html?id=${id}`, 'the chapter list');
 
     const arr = getChapters(id);
-    if (!arr.includes(part)) {
-        arr.push(part);
-        localStorage.setItem(id, JSON.stringify(arr));
-    }
+    localStorage.setItem(id, JSON.stringify([...arr.add(part).values()]));
 
     $('title').innerText = item.name;
     document.title = `${item.name} #${part} | Quiet Writer`;
