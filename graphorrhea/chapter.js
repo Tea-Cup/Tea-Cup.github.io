@@ -38,9 +38,6 @@ document.addEventListener('readystatechange', async () => {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
         return Array.isArray(value) ? value : [];
     }
-    function setChapters(id, value) {
-        localStorage.setItem(id, JSON.stringify(value));
-    }
     const query = new URLSearchParams(window.location.search);
     $('theme').addEventListener('click', () => toggleTheme());
     updateTheme();
@@ -61,7 +58,7 @@ document.addEventListener('readystatechange', async () => {
     const arr = getChapters(id);
     if (!arr.includes(part)) {
         arr.push(part);
-        setChapters(id, arr);
+        localStorage.setItem(id, JSON.stringify(arr));
     }
 
     $('title').innerText = item.name;

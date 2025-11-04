@@ -37,9 +37,6 @@ document.addEventListener('readystatechange', async () => {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
         return Array.isArray(value) ? value : [];
     }
-    function setChapters(id, value) {
-        localStorage.setItem(id, JSON.stringify(value));
-    }
     const query = new URLSearchParams(window.location.search);
     $('kaktovik-loader').remove();
     $('theme').addEventListener('click', () => toggleTheme());
@@ -56,7 +53,7 @@ document.addEventListener('readystatechange', async () => {
     const arr = getChapters(id);
     if(query.has('clear')) {
         arr.length = 0;
-        setChapters(id, []);
+        localStorage.setItem(id, '[]');
         query.delete('clear');
         const url = new URL(window.location.href);
         url.search = '?' + query.toString();
