@@ -15,8 +15,8 @@ document.addEventListener('readystatechange', async () => {
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
         Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
-        for(let i = 0; i < children.length; ++i) {
-            if(typeof(children[i]) !== 'object') 
+        for (let i = 0; i < children.length; ++i) {
+            if (typeof (children[i]) !== 'object')
                 children[i] = document.createTextNode(String(children[i]));
             el.appendChild(children[i]);
         }
@@ -44,14 +44,14 @@ document.addEventListener('readystatechange', async () => {
     //#endregion
 
     const id = query.get('id');
-    if(!id) return showNavError('Title not selected', './', 'the beginning');
+    if (!id) return showNavError('Title not selected', './', 'the beginning');
 
     const index = await fetch('./index.json').then(res => res.json());
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
     const arr = getChapters(id);
-    if(query.has('clear')) {
+    if (query.has('clear')) {
         arr.clear();
         localStorage.setItem(id, '[]');
         query.delete('clear');
@@ -60,7 +60,7 @@ document.addEventListener('readystatechange', async () => {
         history.replaceState(null, '', url.href);
     }
 
-    if(arr.size > 0) {
+    if (arr.size > 0) {
         const clear = $('clear-unread');
         clear.style.display = '';
         clear.href = `./toc.html?id=${id}&clear`;
@@ -70,12 +70,12 @@ document.addEventListener('readystatechange', async () => {
     document.title = `${item.name} | Quiet Writer`;
 
     const frag = document.createDocumentFragment();
-    for(let i = 1; i <= item.parts; ++i) {
+    for (let i = 1; i <= item.parts; ++i) {
         frag.appendChild(_('li', { className: 'list-button' },
             _('a', {
-                    href: `./chapter.html?id=${id}&part=${i}`,
-                    className: arr.has(i) ? 'read' : ''
-                },
+                href: `./chapter.html?id=${id}&part=${i}`,
+                className: arr.has(i) ? 'read' : ''
+            },
                 `Chapter `,
                 kaktovik(i)
             )

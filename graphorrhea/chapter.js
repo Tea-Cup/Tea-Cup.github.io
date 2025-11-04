@@ -16,8 +16,8 @@ document.addEventListener('readystatechange', async () => {
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
         Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
-        for(let i = 0; i < children.length; ++i) {
-            if(typeof(children[i]) !== 'object') 
+        for (let i = 0; i < children.length; ++i) {
+            if (typeof (children[i]) !== 'object')
                 children[i] = document.createTextNode(String(children[i]));
             el.appendChild(children[i]);
         }
