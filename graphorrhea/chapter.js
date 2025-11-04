@@ -70,22 +70,18 @@ document.addEventListener('readystatechange', async () => {
     const nextbot = $('next-bot');
 
     if (part === 1) {
-        prevtop.style.visibility = 'hidden';
-        prevbot.style.visibility = 'hidden';
+        prevtop.style.visibility = prevbot.style.visibility = 'hidden';
     } else {
         prevtop.replaceChildren(`≪　Chapter `, kaktovik(part - 1));
         prevbot.replaceChildren(`≪　Chapter `, kaktovik(part - 1));
-        prevtop.href = `./chapter.html?id=${id}&part=${part - 1}`;
-        prevbot.href = `./chapter.html?id=${id}&part=${part - 1}`;
+        prevtop.href = prevbot.href = `./chapter.html?id=${id}&part=${part - 1}`;
     }
     if (part === item.parts) {
-        nexttop.style.visibility = 'hidden';
-        nextbot.style.visibility = 'hidden';
+        nexttop.style.visibility = nextbot.style.visibility = 'hidden';
     } else {
         nexttop.replaceChildren(`Chapter `, kaktovik(part + 1), `　≫`);
         nextbot.replaceChildren(`Chapter `, kaktovik(part + 1), `　≫`);
-        nexttop.href = `./chapter.html?id=${id}&part=${part + 1}`;
-        nextbot.href = `./chapter.html?id=${id}&part=${part + 1}`;
+        nexttop.href = nextbot.href = `./chapter.html?id=${id}&part=${part + 1}`;
     }
 
     const text = await fetch(`./${id}/${part}.txt`).then(x => x.text());
