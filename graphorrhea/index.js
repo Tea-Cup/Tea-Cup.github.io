@@ -13,7 +13,7 @@ document.addEventListener('readystatechange', async () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
         document.body.parentElement.classList.toggle('light', !dark);
     }
-    document.getElementById('theme').addEventListener('click', () => toggleTheme());
+    $('theme').addEventListener('click', () => toggleTheme());
     updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
@@ -51,16 +51,11 @@ document.addEventListener('readystatechange', async () => {
             _('a',
                 { href: `./toc.html?id=${id}` },
                 _('span', {}, item.name),
-                _('div', {},
-                    arr.length,
-                    ' / ',
-                    item.parts
-                )
+                _('div', {}, arr.length, ' / ', item.parts)
             ),
         ));
     }
 
-    const list = document.getElementById('list');
-    document.getElementById('loader').remove();
-    list.appendChild(frag);
+    $('loader').remove();
+    $('list').appendChild(frag);
 });

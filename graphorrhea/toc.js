@@ -2,8 +2,9 @@ document.addEventListener('readystatechange', async () => {
     if (document.readyState !== 'complete') return;
 
     //#region Common
-    document.getElementById('kaktovik-loader').remove();
-    const main = document.getElementById('main');
+    function $(id) { return document.getElementById(id) }
+    $('kaktovik-loader').remove();
+    const main = $('main');
     const query = new URLSearchParams(window.location.search);
     function updateTheme() {
         const light = localStorage.getItem('theme') === 'light';
@@ -14,7 +15,7 @@ document.addEventListener('readystatechange', async () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
         document.body.parentElement.classList.toggle('light', !dark);
     }
-    document.getElementById('theme').addEventListener('click', () => toggleTheme());
+    $('theme').addEventListener('click', () => toggleTheme());
     updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
@@ -64,13 +65,12 @@ document.addEventListener('readystatechange', async () => {
     }
 
     if(arr.length > 0) {
-        const clear = document.getElementById('clear-unread');
+        const clear = $('clear-unread');
         clear.style.display = '';
         clear.href = `./toc.html?id=${id}&clear`;
     }
 
-    const title = document.getElementById('title');
-    title.innerText = item.name;
+    $('title').innerText = item.name;
     document.title = `${item.name} | Quiet Writer`;
 
     const frag = document.createDocumentFragment();
@@ -86,8 +86,7 @@ document.addEventListener('readystatechange', async () => {
         ));
     }
 
-    const toc = document.getElementById('toc');
-    document.getElementById('loader').remove();
-    document.getElementById('goback').style.display = '';
-    toc.appendChild(frag);
+    $('loader').remove();
+    $('goback').style.display = '';
+    $('toc').appendChild(frag);
 });

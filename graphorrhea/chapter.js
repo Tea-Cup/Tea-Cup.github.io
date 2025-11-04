@@ -2,8 +2,9 @@ document.addEventListener('readystatechange', async () => {
     if (document.readyState !== 'complete') return;
 
     //#region Common
-    document.getElementById('kaktovik-loader').remove();
-    const main = document.getElementById('main');
+    function $(id) { return document.getElementById(id) }
+    $('kaktovik-loader').remove();
+    const main = $('main');
     const query = new URLSearchParams(window.location.search);
     function updateTheme() {
         const light = localStorage.getItem('theme') === 'light';
@@ -14,7 +15,7 @@ document.addEventListener('readystatechange', async () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
         document.body.parentElement.classList.toggle('light', !dark);
     }
-    document.getElementById('theme').addEventListener('click', () => toggleTheme());
+    $('theme').addEventListener('click', () => toggleTheme());
     updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
@@ -64,19 +65,16 @@ document.addEventListener('readystatechange', async () => {
         setChapters(id, arr);
     }
 
-    const title = document.getElementById('title');
-    title.innerText = item.name;
+    $('title').innerText = item.name;
     document.title = `${item.name} #${part} | Quiet Writer`;
 
-    const goback = document.getElementById('goback');
-    const goback2 = document.getElementById('goback-top');
-    goback.href = `./toc.html?id=${id}`;
-    goback2.href = `./toc.html?id=${id}`;
+    $('goback').href = `./toc.html?id=${id}`;
+    $('goback-top').href = `./toc.html?id=${id}`;
 
-    const prevtop = document.getElementById('prev-top');
-    const nexttop = document.getElementById('next-top');
-    const prevbot = document.getElementById('prev-bot');
-    const nextbot = document.getElementById('next-bot');
+    const prevtop = $('prev-top');
+    const nexttop = $('next-top');
+    const prevbot = $('prev-bot');
+    const nextbot = $('next-bot');
 
     if (part === 1) {
         prevtop.style.visibility = 'hidden';
@@ -97,20 +95,15 @@ document.addEventListener('readystatechange', async () => {
         nextbot.href = `./chapter.html?id=${id}&part=${part + 1}`;
     }
 
-    const req = await fetch(`./${id}/${part}.txt`);
-    const text = await req.text();
-    const lines = text.split(/\r?\n/g);
+    const text = await fetch(`./${id}/${part}.txt`).then(x => x.text());
 
     const frag = document.createDocumentFragment();
-    for (const line of lines) {
-        frag.appendChild(_(
-            'p', {}, line
-        ));
+    for (const line of text.split(/\r?\n/g)) {
+        frag.appendChild(_('p', {}, line));
     }
 
-    const content = document.getElementById('content');
-    document.getElementById('loader').remove();
-    document.getElementById('nav-top').style.display = '';
-    document.getElementById('nav-bot').style.display = '';
-    content.appendChild(frag);
+    $('loader').remove();
+    $('nav-top').style.display = '';
+    $('nav-bot').style.display = '';
+    $('content').appendChild(frag);
 });
