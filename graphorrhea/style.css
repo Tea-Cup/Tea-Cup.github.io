@@ -205,7 +205,7 @@ body>#goback {
 #list > li > a > div {
     border-left: 1px solid var(--bdr);
     margin-left: auto;
-    width: 45px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;

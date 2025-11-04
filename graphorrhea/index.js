@@ -56,15 +56,24 @@ document.addEventListener('readystatechange', async () => {
 
     const list = document.getElementById('list');
     const index = await fetch('./index.json').then(res => res.json());
+    
+    const old_version = localStorage.getItem('version') !== '2';
+    if(old_version) localStorage.setItem('version', '2');
 
     for(const [id, item] of Object.entries(index)) {
+        if(old_version) localStorage.removeItem(id);
+        const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
         list.appendChild(_(
             'li',
             { 'class': 'list-button' },
             _('a',
                 { href: `./toc.html?id=${id}` },
                 _('span', {}, item.name),
-                _('div', {}, item.parts)
+                _('div', {},
+                    arr.length,
+                    ' / ',
+                    item.parts
+                )
             ),
         ));
     }
