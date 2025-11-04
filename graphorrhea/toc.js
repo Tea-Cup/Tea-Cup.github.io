@@ -4,11 +4,17 @@ document.addEventListener('readystatechange', async () => {
     //#region Common
     const main = document.getElementById('main');
     const query = new URLSearchParams(window.location.search);
-    document.getElementById('theme').addEventListener('click', () => {
-        const dark = document.body.classList.toggle('dark');
-        document.body.classList.toggle('light', !dark);
+    function updateTheme() {
+        const light = localStorage.getItem('theme') === 'light';
+        document.body.parentElement.classList.toggle('light', light);
+    }
+    function toggleTheme() {
+        const dark = localStorage.getItem('theme') === 'light';
         localStorage.setItem('theme', dark ? 'dark' : 'light');
-    });
+        document.body.parentElement.classList.toggle('light', !dark);
+    }
+    document.getElementById('theme').addEventListener('click', () => toggleTheme());
+    updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
         for(const [key, value] of Object.entries(props ?? {})) {
