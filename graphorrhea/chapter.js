@@ -79,8 +79,10 @@ document.addEventListener('readystatechange', async () => {
         return showError('Invalid chapter number', `./toc.html?id=${id}`, 'the chapter list');
 
     const arr = getChapters(id);
-    arr.push(part);
-    setChapters(id, arr);
+    if(!arr.includes(part)) {
+        arr.push(part);
+        setChapters(id, arr);
+    }
 
     const title = document.getElementById('title');
     title.innerText = item.name;
