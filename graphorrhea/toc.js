@@ -74,13 +74,10 @@ document.addEventListener('readystatechange', async () => {
     //#endregion
 
     const id = query.get('id');
-    console.info('id', id);
     if(!id) return showNavError('Title not selected', './', 'the beginning');
 
     const index = await fetch('./index.json').then(res => res.json());
-    console.info('index', index);
     const item = index[id];
-    console.info('item', item);
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
     const arr = getChapters(id);
@@ -92,7 +89,6 @@ document.addEventListener('readystatechange', async () => {
         url.search = '?' + query.toString();
         history.replaceState(null, '', url.href);
     }
-    console.info('chapters', arr);
 
     if(arr.length > 0) {
         const clear = document.getElementById('clear-unread');
