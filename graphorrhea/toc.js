@@ -69,7 +69,6 @@ document.addEventListener('readystatechange', async () => {
     const id = query.get('id');
     if(!id) return showNavError('Title not selected', './', 'the beginning');
 
-    const toc = document.getElementById('toc');
     const index = await fetch('./index.json').then(res => res.json());
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
@@ -94,8 +93,9 @@ document.addEventListener('readystatechange', async () => {
     title.innerText = item.name;
     document.title = `${item.name} | Quiet Writer`;
 
+    const frag = document.createDocumentFragment();
     for(let i = 1; i <= item.parts; ++i) {
-        toc.appendChild(_('li', { 'class': 'list-button' },
+        frag.appendChild(_('li', { 'class': 'list-button' },
             _('a', {
                     href: `./chapter.html?id=${id}&part=${i}`,
                     'class': { read: arr.includes(i) }
@@ -105,6 +105,9 @@ document.addEventListener('readystatechange', async () => {
             )
         ));
     }
+
+    const toc = document.getElementById('toc');
+    toc.appendChild(frag);
 
     document.body.style.display = '';
 });

@@ -118,13 +118,16 @@ document.addEventListener('readystatechange', async () => {
     const req = await fetch(`./${id}/${part}.txt`);
     const text = await req.text();
     const lines = text.split(/\r?\n/g);
-    const content = document.getElementById('content');
-
+    
+    const frag = document.createDocumentFragment();
     for(const line of lines) {
-        content.appendChild(_(
+        frag.appendChild(_(
             'p', {}, line
         ));
     }
+
+    const content = document.getElementById('content');
+    content.appendChild(frag);
     
     document.body.style.display = '';
 });

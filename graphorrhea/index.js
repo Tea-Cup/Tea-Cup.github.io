@@ -61,12 +61,12 @@ document.addEventListener('readystatechange', async () => {
     }
     //#endregion
 
-    const list = document.getElementById('list');
     const index = await fetch('./index.json').then(res => res.json());
-
+    
+    const frag = document.createDocumentFragment();
     for(const [id, item] of Object.entries(index)) {
         const arr = getChapters(id);
-        list.appendChild(_(
+        frag.appendChild(_(
             'li',
             { 'class': 'list-button' },
             _('a',
@@ -80,6 +80,9 @@ document.addEventListener('readystatechange', async () => {
             ),
         ));
     }
+
+    const list = document.getElementById('list');
+    list.appendChild(frag);
     
     document.body.style.display = '';
 });
