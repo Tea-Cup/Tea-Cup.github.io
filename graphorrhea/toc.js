@@ -57,6 +57,13 @@ document.addEventListener('readystatechange', async () => {
         const code = str.map(x => 0x1D2C0 + x);
         return _('span', { 'class': 'kaktovik' }, String.fromCodePoint(...code));
     }
+    function getChapters(id) {
+        const value = JSON.parse(localStorage.getItem(id) ?? '[]');
+        return Array.isArray(value) ? value : [];
+    }
+    function setChapters(id, value) {
+        localStorage.setItem(id, JSON.stringify(value));
+    }
     //#endregion
 
     const id = query.get('id');
@@ -67,10 +74,10 @@ document.addEventListener('readystatechange', async () => {
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
-    const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
+    const arr = getChapters(id);
     if(query.has('clear')) {
         arr.length = 0;
-        localStorage.setItem(`chapters-${id}`, '[]');
+        setChapters(id, []);
         query.delete('clear');
         const url = new URL(window.location.href);
         url.search = '?' + query.toString();

@@ -52,13 +52,20 @@ document.addEventListener('readystatechange', async () => {
     function showNavError(text, link, name) {
         showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
     }
+    function getChapters(id) {
+        const value = JSON.parse(localStorage.getItem(id) ?? '[]');
+        return Array.isArray(value) ? value : [];
+    }
+    function setChapters(id, value) {
+        localStorage.setItem(id, JSON.stringify(value));
+    }
     //#endregion
 
     const list = document.getElementById('list');
     const index = await fetch('./index.json').then(res => res.json());
 
     for(const [id, item] of Object.entries(index)) {
-        const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
+        const arr = getChapters(id);
         list.appendChild(_(
             'li',
             { 'class': 'list-button' },

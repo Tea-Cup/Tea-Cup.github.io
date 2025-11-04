@@ -57,6 +57,13 @@ document.addEventListener('readystatechange', async () => {
         const code = str.map(x => 0x1D2C0 + x);
         return _('span', { 'class': 'kaktovik' }, String.fromCodePoint(...code));
     }
+    function getChapters(id) {
+        const value = JSON.parse(localStorage.getItem(id) ?? '[]');
+        return Array.isArray(value) ? value : [];
+    }
+    function setChapters(id, value) {
+        localStorage.setItem(id, JSON.stringify(value));
+    }
     //#endregion
 
     const id = query.get('id');
@@ -71,9 +78,9 @@ document.addEventListener('readystatechange', async () => {
     if(isNaN(part) || !Number.isInteger(part) || part < 1 || part > item.parts)
         return showError('Invalid chapter number', `./toc.html?id=${id}`, 'the chapter list');
 
-    const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
+    const arr = getChapters(id);
     arr.push(part);
-    localStorage.setItem(`chapters-${id}`, JSON.stringify(arr));
+    setChapters(id, arr);
 
     const title = document.getElementById('title');
     title.innerText = item.name;
