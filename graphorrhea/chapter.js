@@ -52,6 +52,11 @@ document.addEventListener('readystatechange', async () => {
     function showNavError(text, link, name) {
         showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
     }
+    function kaktovik(num) {
+        const str = num.toString(20).split('').map(x => parseInt(x, 20));
+        const code = str.map(x => 0x1D2C0 + x);
+        return _('span', { 'class': 'kaktovik' }, String.fromCodePoint(...code));
+    }
     //#endregion
 
     const id = query.get('id');
@@ -93,8 +98,8 @@ document.addEventListener('readystatechange', async () => {
         prevtop.style.visibility = 'hidden';
         prevbot.style.visibility = 'hidden';
     } else {
-        prevtop.innerText = `≪　Chapter ${part-1}`;
-        prevbot.innerText = `≪　Chapter ${part-1}`;
+        prevtop.replaceChildren(`≪　Chapter `, kaktovik(part-1));
+        prevbot.replaceChildren(`≪　Chapter `, kaktovik(part-1));
         prevtop.href = `./chapter.html?id=${id}&part=${part-1}`;
         prevbot.href = `./chapter.html?id=${id}&part=${part-1}`;
     }
@@ -102,8 +107,8 @@ document.addEventListener('readystatechange', async () => {
         nexttop.style.visibility = 'hidden';
         nextbot.style.visibility = 'hidden';
     } else {
-        nexttop.innerText = `Chapter ${part+1}　≫`;
-        nextbot.innerText = `Chapter ${part+1}　≫`;
+        nexttop.replaceChildren(`Chapter `, kaktovik(part+1), `　≫`);
+        nextbot.replaceChildren(`Chapter `, kaktovik(part+1), `　≫`);
         nexttop.href = `./chapter.html?id=${id}&part=${part+1}`;
         nextbot.href = `./chapter.html?id=${id}&part=${part+1}`;
     }

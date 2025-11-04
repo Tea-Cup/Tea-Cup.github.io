@@ -55,6 +55,10 @@
         url("./font/OpenDyslexic-Bold-Italic.woff2") format("woff2"),
         url("./font/OpenDyslexic-Bold-Italic.woff") format("woff");
 }
+@font-face {
+    font-family: "Gentium Kaktovik";
+    src: url("./font/GentiumKaktovik.ttf") format("truetype")
+}
 
 * {
     box-sizing: border-box;
@@ -69,6 +73,10 @@ body {
     font-family: "OpenDyslexic", Verdana, Geneva, Tahoma, sans-serif;
     color: var(--fgn);
     padding-top: 36px;
+}
+
+.kaktovik {
+    font-family: "Gentium Kaktovik";
 }
 
 #logo {

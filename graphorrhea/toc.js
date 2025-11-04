@@ -52,6 +52,11 @@ document.addEventListener('readystatechange', async () => {
     function showNavError(text, link, name) {
         showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
     }
+    function kaktovik(num) {
+        const str = num.toString(20).split('').map(x => parseInt(x, 20));
+        const code = str.map(x => 0x1D2C0 + x);
+        return _('span', { 'class': 'kaktovik' }, String.fromCodePoint(...code));
+    }
     //#endregion
 
     const id = query.get('id');
@@ -93,7 +98,8 @@ document.addEventListener('readystatechange', async () => {
                     href: `./chapter.html?id=${id}&part=${i}`,
                     'class': { read: arr.includes(i) }
                 },
-                `Chapter ${i}`
+                `Chapter `,
+                kaktovik(i)
             )
         ));
     }
