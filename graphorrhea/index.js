@@ -56,13 +56,9 @@ document.addEventListener('readystatechange', async () => {
 
     const list = document.getElementById('list');
     const index = await fetch('./index.json').then(res => res.json());
-    
-    const old_version = localStorage.getItem('version') !== '2';
-    if(old_version) localStorage.setItem('version', '2');
 
     for(const [id, item] of Object.entries(index)) {
-        if(old_version) localStorage.removeItem(id);
-        const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
+        const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
         list.appendChild(_(
             'li',
             { 'class': 'list-button' },

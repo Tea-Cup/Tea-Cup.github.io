@@ -71,14 +71,9 @@ document.addEventListener('readystatechange', async () => {
     if(isNaN(part) || !Number.isInteger(part) || part < 1 || part > item.parts)
         return showError('Invalid chapter number', `./toc.html?id=${id}`, 'the chapter list');
 
-    if(localStorage.getItem('version') !== '2') {
-        localStorage.removeItem(id);
-        localStorage.setItem('version', '2');
-    }
-
-    const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
+    const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
     arr.push(part);
-    localStorage.setItem(id, JSON.stringify(arr));
+    localStorage.setItem(`chapters-${id}`, JSON.stringify(arr));
 
     const title = document.getElementById('title');
     title.innerText = item.name;

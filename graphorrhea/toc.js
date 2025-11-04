@@ -67,15 +67,10 @@ document.addEventListener('readystatechange', async () => {
     const item = index[id];
     if (!item) return showNavError('Unknown title selected', './', 'the beginning');
 
-    if(localStorage.getItem('version') !== '2') {
-        localStorage.removeItem(id);
-        localStorage.setItem('version', '2');
-    }
-
-    const arr = JSON.parse(localStorage.getItem(id) ?? '[]');
+    const arr = JSON.parse(localStorage.getItem(`chapters-${id}`) ?? '[]');
     if(query.has('clear')) {
         arr.length = 0;
-        localStorage.setItem(id, '[]');
+        localStorage.setItem(`chapters-${id}`, '[]');
         query.delete('clear');
         const url = new URL(window.location.href);
         url.search = '?' + query.toString();
