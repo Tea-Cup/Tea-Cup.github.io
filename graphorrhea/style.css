@@ -118,6 +118,9 @@ body > header {
     right: 0;
     z-index: 20;
 }
+body > header > a {
+    height: 100%;
+}
 #theme {
     width: 26px;
     height: 26px;
