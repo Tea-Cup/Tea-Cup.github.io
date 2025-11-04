@@ -17,43 +17,16 @@ document.addEventListener('readystatechange', async () => {
     updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
-        for(const [key, value] of Object.entries(props ?? {})) {
-            if(key === 'class') {
-                if(Array.isArray(value)) {
-                    for(const cls of value) el.classList.add(cls);
-                } else if(typeof(value) === 'object') {
-                    for(const [k,n] of Object.entries(value))
-                        if(n) el.classList.add(k);
-                } else {
-                    el.className = String(value);
-                }
-            } else if(key === 'style') {
-                for(const [k,v] of Object.entries(value)) {
-                    el.style[k] = String(v);
-                }
-            } else if(key.startsWith('$')) {
-                el.addEventListener(key.substring(1), value);
-            } else if(key.startsWith('@')) {
-                el.setAttribute(key.substring(1), String(value));
-            } else {
-                el[key] = value;
-            }
-        }
-        for(const child of children) {
-            if(typeof(child) === 'object') {
-                el.appendChild(child);
-            } else {
-                el.appendChild(document.createTextNode(String(child)));
-            }
+        Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
+        for(let i = 0; i < children.length; ++i) {
+            if(typeof(children[i]) !== 'object') 
+                children[i] = document.createTextNode(String(children[i]));
+            el.appendChild(children[i]);
         }
         return el;
     }
     function showError(...text) {
-        main.replaceChildren(_(
-            'div',
-            { 'class': ['error'] },
-            ...text
-        ));
+        main.replaceChildren(_('div', { className: 'error' }, ...text));
     }
     function showNavError(text, link, name) {
         showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
@@ -74,7 +47,7 @@ document.addEventListener('readystatechange', async () => {
         const arr = getChapters(id);
         frag.appendChild(_(
             'li',
-            { 'class': 'list-button' },
+            { className: 'list-button' },
             _('a',
                 { href: `./toc.html?id=${id}` },
                 _('span', {}, item.name),

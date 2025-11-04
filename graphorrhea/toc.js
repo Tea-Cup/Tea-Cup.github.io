@@ -18,43 +18,16 @@ document.addEventListener('readystatechange', async () => {
     updateTheme();
     function _(tag, props, ...children) {
         const el = document.createElement(tag);
-        for(const [key, value] of Object.entries(props ?? {})) {
-            if(key === 'class') {
-                if(Array.isArray(value)) {
-                    for(const cls of value) el.classList.add(cls);
-                } else if(typeof(value) === 'object') {
-                    for(const [k,n] of Object.entries(value))
-                        if(n) el.classList.add(k);
-                } else {
-                    el.className = String(value);
-                }
-            } else if(key === 'style') {
-                for(const [k,v] of Object.entries(value)) {
-                    el.style[k] = String(v);
-                }
-            } else if(key.startsWith('$')) {
-                el.addEventListener(key.substring(1), value);
-            } else if(key.startsWith('@')) {
-                el.setAttribute(key.substring(1), String(value));
-            } else {
-                el[key] = value;
-            }
-        }
-        for(const child of children) {
-            if(typeof(child) === 'object') {
-                el.appendChild(child);
-            } else {
-                el.appendChild(document.createTextNode(String(child)));
-            }
+        Object.entries(props ?? {}).forEach(([k, v]) => { el[k] = v });
+        for(let i = 0; i < children.length; ++i) {
+            if(typeof(children[i]) !== 'object') 
+                children[i] = document.createTextNode(String(children[i]));
+            el.appendChild(children[i]);
         }
         return el;
     }
     function showError(...text) {
-        main.replaceChildren(_(
-            'div',
-            { 'class': ['error'] },
-            ...text
-        ));
+        main.replaceChildren(_('div', { className: 'error' }, ...text));
     }
     function showNavError(text, link, name) {
         showError(text, _('br'), _('br'), 'Please return to ', _('a', { href: link }, name));
@@ -62,7 +35,7 @@ document.addEventListener('readystatechange', async () => {
     function kaktovik(num) {
         const str = num.toString(20).split('').map(x => parseInt(x, 20));
         const code = str.map(x => 0x1D2C0 + x);
-        return _('span', { 'class': 'kaktovik' }, String.fromCodePoint(...code));
+        return _('span', { className: 'kaktovik' }, String.fromCodePoint(...code));
     }
     function getChapters(id) {
         const value = JSON.parse(localStorage.getItem(id) ?? '[]');
@@ -102,10 +75,10 @@ document.addEventListener('readystatechange', async () => {
 
     const frag = document.createDocumentFragment();
     for(let i = 1; i <= item.parts; ++i) {
-        frag.appendChild(_('li', { 'class': 'list-button' },
+        frag.appendChild(_('li', { className: 'list-button' },
             _('a', {
                     href: `./chapter.html?id=${id}&part=${i}`,
-                    'class': { read: arr.includes(i) }
+                    className: arr.includes(i) ? 'read' : ''
                 },
                 `Chapter `,
                 kaktovik(i)
